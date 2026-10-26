@@ -9,25 +9,27 @@
 <meta property="og:description" content="I break software so your users never have to. UI & API automation, exploratory testing, security checks, visionOS.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opt,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0e13;
-    --bg2: #0f151d;
-    --card: #121923;
-    --line: #1f2a38;
-    --text: #e7edf5;
-    --muted: #8b9ab0;
-    --pass: #4ade80;
-    --accent: #5eead4;
-    --warn: #fbbf24;
-    --bug: #fb7185;
+    --bg: #0a0c12;
+    --bg2: #0e121b;
+    --card: #11151f;
+    --line: #1e2433;
+    --text: #f1ece3;
+    --muted: #9aa0ae;
+    --pass: #6fcf97;
+    --accent: #e3b873;
+    --accent2: #8aa4e8;
+    --warn: #e3b873;
+    --bug: #e5848f;
     --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    --sans: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
   }
   :root[data-theme="light"] {
-    --bg: #f6f7f4; --bg2: #ffffff; --card: #ffffff; --line: #dde2dc;
-    --text: #131a22; --muted: #566274; --pass: #15803d; --accent: #0f766e; --warn: #b45309; --bug: #be123c;
+    --bg: #f8f5ef; --bg2: #ffffff; --card: #fffdf9; --line: #e6dfd2;
+    --text: #1a1d27; --muted: #666b78; --pass: #2f855a; --accent: #9a6b1f; --accent2: #3a56a8; --warn: #9a6b1f; --bug: #b4344a;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -35,14 +37,9 @@
     margin: 0; background: var(--bg); color: var(--text);
     font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased;
     background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 56px 56px;
-    background-position: -1px -1px;
-  }
-  body::before {
-    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-    background: radial-gradient(ellipse at 20% 0%, transparent 0%, var(--bg) 70%);
+      radial-gradient(900px 500px at 85% -5%, color-mix(in srgb, var(--accent2) 14%, transparent), transparent 60%),
+      radial-gradient(700px 420px at 0% 10%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 60%);
+    background-repeat: no-repeat;
   }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -56,8 +53,8 @@
     border-bottom: 1px solid var(--line);
   }
   nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
-  .logo { font-family: var(--mono); font-weight: 700; color: var(--text); }
-  .logo span { color: var(--pass); }
+  .logo { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; color: var(--text); }
+  .logo span { color: var(--accent); }
   nav ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; font-family: var(--mono); font-size: .8rem; }
   nav ul a { color: var(--muted); }
   nav ul a:hover { color: var(--accent); text-decoration: none; }
@@ -69,13 +66,13 @@
   @media (max-width: 760px) { nav ul { display: none; } }
 
   /* hero */
-  .hero { padding: 80px 0 56px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: center; }
+  .hero { padding: 84px 0 56px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: center; }
   @media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding-top: 48px; } }
-  .eyebrow { font-family: var(--mono); font-size: .8rem; color: var(--pass); margin-bottom: 14px; }
-  .eyebrow::before { content: "● "; animation: blink 1.6s infinite; }
+  .eyebrow { font-family: var(--mono); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+  .eyebrow::before { content: ""; display: inline-block; width: 28px; height: 1px; background: var(--accent); vertical-align: middle; margin-right: 12px; }
   @keyframes blink { 50% { opacity: .2; } }
-  h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.04; margin: 0 0 18px; letter-spacing: -.02em; }
-  h1 em { font-style: normal; color: var(--accent); }
+  h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.5rem, 6vw, 4.4rem); line-height: 1.05; margin: 0 0 20px; letter-spacing: -.02em; }
+  h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
   h1 .strike { position: relative; color: var(--muted); }
   h1 .strike::after { content: ""; position: absolute; left: 0; right: 0; top: 52%; height: 3px; background: var(--bug); transform: rotate(-2deg); }
   .lead { color: var(--muted); font-size: 1.08rem; max-width: 560px; margin: 0 0 26px; }
@@ -85,8 +82,33 @@
     border: 1px solid var(--accent); color: var(--accent); display: inline-block; background: transparent; cursor: pointer;
   }
   .btn:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); text-decoration: none; }
-  .btn.solid { background: var(--accent); color: var(--bg); }
+  .btn.solid { background: var(--accent); color: #14100a; }
   .btn.solid:hover { background: var(--accent); opacity: .88; }
+
+  .hero > * { min-width: 0; }
+  html, body { overflow-x: hidden; }
+
+  /* portrait */
+  .portrait { position: relative; justify-self: center; width: min(100%, 380px); }
+  .arch {
+    position: relative; border-radius: 999px 999px 18px 18px; overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line));
+    box-shadow: 0 30px 60px -25px rgba(0,0,0,.7);
+  }
+  .arch img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5.2; object-fit: cover; object-position: 50% 12%; }
+  .arch::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,12,18,.45), transparent 40%); }
+  .portrait::before {
+    content: ""; position: absolute; inset: -14px -14px 14px 14px; z-index: -1;
+    border: 1px solid var(--line); border-radius: 999px 999px 18px 18px;
+  }
+  .portrait .term { position: absolute; left: -64px; bottom: 28px; width: 290px; z-index: 2; }
+  .portrait .term pre { font-size: .7rem; line-height: 1.6; padding: 12px 14px; white-space: normal; display: flex; flex-direction: column; gap: 4px; }
+  .row { display: flex; justify-content: space-between; gap: 12px; }
+  @media (max-width: 860px) {
+    .portrait { margin-top: 8px; width: min(100%, 340px); }
+    .portrait .term { position: relative; left: auto; bottom: auto; width: 100%; margin-top: 18px; }
+    .portrait::before { display: none; }
+  }
 
   /* terminal */
   .term { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px -20px rgba(0,0,0,.6); }
@@ -103,14 +125,14 @@
   /* stats */
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 20px; }
   .stat { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
-  .stat b { display: block; font-family: var(--mono); font-size: 2rem; color: var(--accent); line-height: 1.1; }
+  .stat b { display: block; font-family: var(--serif); font-weight: 500; font-size: 2.3rem; color: var(--accent); line-height: 1.1; }
   .stat span { color: var(--muted); font-size: .85rem; }
 
   /* sections */
   section { padding: 56px 0; }
   .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px; }
-  .sec-head .no { font-family: var(--mono); color: var(--pass); font-size: .85rem; }
-  .sec-head h2 { margin: 0; font-size: clamp(1.5rem, 3.5vw, 2.1rem); letter-spacing: -.01em; }
+  .sec-head .no { font-family: var(--serif); font-style: italic; color: var(--accent); font-size: 1.1rem; }
+  .sec-head h2 { margin: 0; font-family: var(--serif); font-weight: 500; font-size: clamp(1.7rem, 3.8vw, 2.4rem); letter-spacing: -.01em; }
   .sec-head::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 
   .about { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; }
@@ -118,7 +140,7 @@
   .panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 22px; }
   .panel p { margin: 0 0 12px; color: var(--muted); }
   .panel p:last-child { margin-bottom: 0; }
-  .panel h3 { margin: 0 0 12px; font-size: .8rem; font-family: var(--mono); color: var(--accent); font-weight: 500; text-transform: uppercase; letter-spacing: .08em; }
+  .panel h3 { margin: 0 0 12px; font-size: .75rem; font-family: var(--mono); color: var(--accent); font-weight: 500; text-transform: uppercase; letter-spacing: .08em; }
   .kv { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; font-family: var(--mono); font-size: .8rem; margin: 0; }
   .kv dt { color: var(--muted); } .kv dd { margin: 0; }
 
@@ -126,7 +148,7 @@
   .matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
   .skill { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; transition: border-color .2s, transform .2s; }
   .skill:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .skill h3 { margin: 0 0 12px; font-size: 1rem; display: flex; justify-content: space-between; align-items: center; }
+  .skill h3 { margin: 0 0 12px; font-family: var(--serif); font-weight: 500; font-size: 1.15rem; display: flex; justify-content: space-between; align-items: center; }
   .skill h3 small { font-family: var(--mono); font-size: .68rem; color: var(--pass); font-weight: 500; }
   .tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .tags span { font-family: var(--mono); font-size: .74rem; padding: 3px 9px; border-radius: 6px; background: var(--bg2); border: 1px solid var(--line); color: var(--text); }
@@ -138,7 +160,7 @@
   .suite summary::-webkit-details-marker { display: none; }
   .badge { font-family: var(--mono); font-size: .68rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; background: color-mix(in srgb, var(--pass) 16%, transparent); color: var(--pass); letter-spacing: .06em; }
   .badge.run { background: color-mix(in srgb, var(--warn) 16%, transparent); color: var(--warn); }
-  .suite h3 { margin: 0; font-size: 1.08rem; }
+  .suite h3 { margin: 0; font-family: var(--serif); font-weight: 500; font-size: 1.2rem; }
   .suite h3 span { color: var(--muted); font-weight: 400; }
   .when { font-family: var(--mono); font-size: .75rem; color: var(--muted); text-align: right; }
   .chev { font-family: var(--mono); color: var(--muted); transition: transform .2s; display: inline-block; margin-left: 8px; }
@@ -155,7 +177,7 @@
   .tc { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; position: relative; }
   .tc .id { font-family: var(--mono); font-size: .72rem; color: var(--muted); display: flex; justify-content: space-between; margin-bottom: 10px; }
   .tc .id b { color: var(--pass); }
-  .tc h3 { margin: 0 0 6px; font-size: 1.1rem; }
+  .tc h3 { margin: 0 0 6px; font-family: var(--serif); font-weight: 500; font-size: 1.25rem; }
   .tc p { margin: 0 0 12px; color: var(--muted); font-size: .92rem; }
 
   /* platforms */
@@ -229,19 +251,16 @@
         </div>
       </div>
 
-      <div class="term" aria-hidden="true">
-        <div class="term-bar"><i></i><i></i><i></i><span>~/lubna — qa-suite --all</span></div>
-<pre><span class="l" style="animation-delay:.3s"><span class="dim">$</span> run qa-suite --all</span>
-<span class="l" style="animation-delay:.9s"><span class="acc">▶</span> Authentication &amp; access control   <span class="ok">PASS</span></span>
-<span class="l" style="animation-delay:1.3s"><span class="acc">▶</span> Role-based permissions         <span class="ok">PASS</span></span>
-<span class="l" style="animation-delay:1.7s"><span class="acc">▶</span> UI automation (Selenium/PW)    <span class="ok">PASS</span></span>
-<span class="l" style="animation-delay:2.1s"><span class="acc">▶</span> API tests (Postman/RestAssured) <span class="ok">PASS</span></span>
-<span class="l" style="animation-delay:2.5s"><span class="acc">▶</span> Load test (JMeter)              <span class="ok">PASS</span></span>
-<span class="l" style="animation-delay:2.9s"><span class="acc">▶</span> SQL data integrity              <span class="ok">PASS</span></span>
-<span class="l" style="animation-delay:3.3s"><span class="acc">▶</span> visionOS spatial UI             <span class="ok">PASS</span></span>
-<span class="l" style="animation-delay:3.7s"><span class="wn">⚠</span> Edge cases found in prod      <span class="ok">0</span></span>
-<span class="l" style="animation-delay:4.1s"><span class="dim">──────────────────────────────────</span></span>
-<span class="l" style="animation-delay:4.3s"><span class="ok">Quality Gate: SIGNED OFF</span> <span class="cursor"></span></span></pre>
+      <div class="portrait">
+        <div class="arch"><img src="./assets/images/profile.jpg" alt="Portrait of Lubna Ashanisha Muhammed" width="676" height="800" fetchpriority="high"></div>
+        <div class="term" aria-hidden="true">
+          <div class="term-bar"><i></i><i></i><i></i><span>qa-suite --all</span></div>
+<pre><span class="l row" style="animation-delay:.6s"><span>▶ Access control</span><span class="ok">PASS</span></span>
+<span class="l row" style="animation-delay:1.1s"><span>▶ UI &amp; API automation</span><span class="ok">PASS</span></span>
+<span class="l row" style="animation-delay:1.6s"><span>▶ Load · JMeter</span><span class="ok">PASS</span></span>
+<span class="l row" style="animation-delay:2.1s"><span>▶ visionOS spatial UI</span><span class="ok">PASS</span></span>
+<span class="l" style="animation-delay:2.6s"><span class="acc">Quality Gate: SIGNED OFF</span> <span class="cursor"></span></span></pre>
+        </div>
       </div>
     </div>
 
