@@ -1,49 +1,498 @@
-<!-- TODO 1: Create the HTML Boilerplate -->
-
-<!-- TODO 2: Add Your previous projects' HTML into the public folder -->
-
-<!-- TODO 3: Take screenshots of your project previews and add the images to the images folder -->
-
-<!-- TODO 4: Add titles/subtitles etc. -->
-
-<!-- TODO 5: Add a link to the project pages -->
-
-<!-- TODO 6: Add images to show the project previews
-HINT for TODO 6: You can use the height attribute set to 200 to make the image smaller:
-https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-height -->
-
-<!-- TODO 7: Add the Contact Me and About Me page links -->
-
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>My Portfolio</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lubna Ashanisha Muhammed | Senior QA Engineer · SDET</title>
+<meta name="description" content="Portfolio of Lubna Ashanisha Muhammed, Senior QA Engineer / SDET with 6+ years across Fintech, ERP, SaaS, CRM, eCommerce and AI products.">
+<meta property="og:title" content="Lubna Ashanisha Muhammed | Senior QA Engineer · SDET">
+<meta property="og:description" content="I break software so your users never have to. UI & API automation, exploratory testing, security checks, visionOS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e13;
+    --bg2: #0f151d;
+    --card: #121923;
+    --line: #1f2a38;
+    --text: #e7edf5;
+    --muted: #8b9ab0;
+    --pass: #4ade80;
+    --accent: #5eead4;
+    --warn: #fbbf24;
+    --bug: #fb7185;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --sans: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  :root[data-theme="light"] {
+    --bg: #f6f7f4; --bg2: #ffffff; --card: #ffffff; --line: #dde2dc;
+    --text: #131a22; --muted: #566274; --pass: #15803d; --accent: #0f766e; --warn: #b45309; --bug: #be123c;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 56px 56px;
+    background-position: -1px -1px;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(ellipse at 20% 0%, transparent 0%, var(--bg) 70%);
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  .mono { font-family: var(--mono); }
+
+  /* nav */
+  nav {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .logo { font-family: var(--mono); font-weight: 700; color: var(--text); }
+  .logo span { color: var(--pass); }
+  nav ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; font-family: var(--mono); font-size: .8rem; }
+  nav ul a { color: var(--muted); }
+  nav ul a:hover { color: var(--accent); text-decoration: none; }
+  .toggle {
+    background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 6px;
+    font-family: var(--mono); font-size: .75rem; padding: 4px 10px; cursor: pointer;
+  }
+  .toggle:hover { color: var(--accent); border-color: var(--accent); }
+  @media (max-width: 760px) { nav ul { display: none; } }
+
+  /* hero */
+  .hero { padding: 80px 0 56px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: center; }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding-top: 48px; } }
+  .eyebrow { font-family: var(--mono); font-size: .8rem; color: var(--pass); margin-bottom: 14px; }
+  .eyebrow::before { content: "● "; animation: blink 1.6s infinite; }
+  @keyframes blink { 50% { opacity: .2; } }
+  h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.04; margin: 0 0 18px; letter-spacing: -.02em; }
+  h1 em { font-style: normal; color: var(--accent); }
+  h1 .strike { position: relative; color: var(--muted); }
+  h1 .strike::after { content: ""; position: absolute; left: 0; right: 0; top: 52%; height: 3px; background: var(--bug); transform: rotate(-2deg); }
+  .lead { color: var(--muted); font-size: 1.08rem; max-width: 560px; margin: 0 0 26px; }
+  .btns { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    font-family: var(--mono); font-size: .85rem; font-weight: 500; padding: 11px 18px; border-radius: 8px;
+    border: 1px solid var(--accent); color: var(--accent); display: inline-block; background: transparent; cursor: pointer;
+  }
+  .btn:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); text-decoration: none; }
+  .btn.solid { background: var(--accent); color: var(--bg); }
+  .btn.solid:hover { background: var(--accent); opacity: .88; }
+
+  /* terminal */
+  .term { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px -20px rgba(0,0,0,.6); }
+  .term-bar { display: flex; align-items: center; gap: 7px; padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--card); }
+  .term-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+  .term-bar i:nth-child(1) { background: var(--bug); } .term-bar i:nth-child(2) { background: var(--warn); } .term-bar i:nth-child(3) { background: var(--pass); }
+  .term-bar span { margin-left: 8px; font-family: var(--mono); font-size: .72rem; color: var(--muted); }
+  .term pre { margin: 0; padding: 16px; font-family: var(--mono); font-size: .78rem; line-height: 1.85; overflow-x: auto; }
+  .term .l { opacity: 0; animation: show .01s forwards; }
+  @keyframes show { to { opacity: 1; } }
+  .ok { color: var(--pass); } .dim { color: var(--muted); } .acc { color: var(--accent); } .wn { color: var(--warn); }
+  .cursor { display: inline-block; width: 8px; height: 1em; background: var(--accent); vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+
+  /* stats */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 20px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+  .stat b { display: block; font-family: var(--mono); font-size: 2rem; color: var(--accent); line-height: 1.1; }
+  .stat span { color: var(--muted); font-size: .85rem; }
+
+  /* sections */
+  section { padding: 56px 0; }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px; }
+  .sec-head .no { font-family: var(--mono); color: var(--pass); font-size: .85rem; }
+  .sec-head h2 { margin: 0; font-size: clamp(1.5rem, 3.5vw, 2.1rem); letter-spacing: -.01em; }
+  .sec-head::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  .about { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; }
+  @media (max-width: 860px) { .about { grid-template-columns: 1fr; } }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 22px; }
+  .panel p { margin: 0 0 12px; color: var(--muted); }
+  .panel p:last-child { margin-bottom: 0; }
+  .panel h3 { margin: 0 0 12px; font-size: .8rem; font-family: var(--mono); color: var(--accent); font-weight: 500; text-transform: uppercase; letter-spacing: .08em; }
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; font-family: var(--mono); font-size: .8rem; margin: 0; }
+  .kv dt { color: var(--muted); } .kv dd { margin: 0; }
+
+  /* skills */
+  .matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .skill { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; transition: border-color .2s, transform .2s; }
+  .skill:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .skill h3 { margin: 0 0 12px; font-size: 1rem; display: flex; justify-content: space-between; align-items: center; }
+  .skill h3 small { font-family: var(--mono); font-size: .68rem; color: var(--pass); font-weight: 500; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags span { font-family: var(--mono); font-size: .74rem; padding: 3px 9px; border-radius: 6px; background: var(--bg2); border: 1px solid var(--line); color: var(--text); }
+
+  /* experience suites */
+  .suite { background: var(--card); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+  .suite[open] { border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); }
+  .suite summary { list-style: none; cursor: pointer; padding: 18px 22px; display: grid; grid-template-columns: auto 1fr auto; gap: 8px 16px; align-items: center; }
+  .suite summary::-webkit-details-marker { display: none; }
+  .badge { font-family: var(--mono); font-size: .68rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; background: color-mix(in srgb, var(--pass) 16%, transparent); color: var(--pass); letter-spacing: .06em; }
+  .badge.run { background: color-mix(in srgb, var(--warn) 16%, transparent); color: var(--warn); }
+  .suite h3 { margin: 0; font-size: 1.08rem; }
+  .suite h3 span { color: var(--muted); font-weight: 400; }
+  .when { font-family: var(--mono); font-size: .75rem; color: var(--muted); text-align: right; }
+  .chev { font-family: var(--mono); color: var(--muted); transition: transform .2s; display: inline-block; margin-left: 8px; }
+  .suite[open] .chev { transform: rotate(90deg); }
+  @media (max-width: 640px) { .suite summary { grid-template-columns: 1fr; } .when { text-align: left; } }
+  .suite .body { padding: 0 22px 20px; border-top: 1px dashed var(--line); }
+  .proj { font-family: var(--mono); font-size: .75rem; color: var(--accent); margin: 14px 0 10px; }
+  .cases { list-style: none; margin: 0; padding: 0; }
+  .cases li { padding: 5px 0 5px 24px; position: relative; color: var(--muted); font-size: .94rem; }
+  .cases li::before { content: "✓"; position: absolute; left: 0; color: var(--pass); font-family: var(--mono); font-weight: 700; }
+
+  /* test cases */
+  .tcs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .tc { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; position: relative; }
+  .tc .id { font-family: var(--mono); font-size: .72rem; color: var(--muted); display: flex; justify-content: space-between; margin-bottom: 10px; }
+  .tc .id b { color: var(--pass); }
+  .tc h3 { margin: 0 0 6px; font-size: 1.1rem; }
+  .tc p { margin: 0 0 12px; color: var(--muted); font-size: .92rem; }
+
+  /* platforms */
+  .devices { display: flex; flex-wrap: wrap; gap: 10px; }
+  .device { font-family: var(--mono); font-size: .8rem; padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); }
+  .device::before { content: "● "; color: var(--pass); }
+  .device.vp { border-color: var(--accent); color: var(--accent); }
+
+  /* edu */
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .certs { list-style: none; padding: 0; margin: 0; }
+  .certs li { padding: 6px 0; border-bottom: 1px dashed var(--line); display: flex; justify-content: space-between; gap: 12px; }
+  .certs li:last-child { border: 0; }
+  .certs li span { font-family: var(--mono); font-size: .7rem; color: var(--pass); white-space: nowrap; }
+
+  /* bug report contact */
+  .report { background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .report header { padding: 14px 22px; background: var(--bg2); border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: var(--mono); font-size: .78rem; }
+  .report header b { color: var(--bug); }
+  .report form { padding: 22px; display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+  .report .full { grid-column: 1 / -1; }
+  @media (max-width: 640px) { .report form { grid-template-columns: 1fr; } }
+  label { display: block; font-family: var(--mono); font-size: .72rem; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .06em; }
+  input, select, textarea {
+    width: 100%; background: var(--bg2); color: var(--text); border: 1px solid var(--line); border-radius: 8px;
+    padding: 11px 12px; font-family: var(--sans); font-size: .95rem;
+  }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
+  textarea { min-height: 110px; resize: vertical; }
+  .links { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 12px; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 44px; color: var(--muted); font-family: var(--mono); font-size: .75rem; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+  /* reveal */
+  .rv { opacity: 0; transform: translateY(14px); transition: opacity .6s, transform .6s; }
+  .rv.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .rv, .term .l { opacity: 1; transform: none; }
+  }
+</style>
 </head>
 <body>
-   <h1>Lubna's Portfolio</h1>
-    <h2>I'm a Web Developer</h2>
-    <hr/>
-    <h3>
-        <a href="./public/movie-ranking.html">
-            Movie Ranking Project
-        </a>
-    </h3>
-    <img src="./assets/images/movie-ranking.png" alt="movie list" height="200"/>
-    <h3>
-        <a href="./public/birthday-invite.html">
-            Birthday Invite Project
-        </a>
-    </h3>
-    <img src="./assets/images/birthday-invite.png" alt="birthday invite" height="200"/>
-    <hr/>
-    <a href="./public/about.html">
-        About Me
-    </a>
-    <a href="./public/contact.html">
-        Contact Me
-    </a>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">lubna<span>.</span>qa</a>
+    <ul>
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#cases">test-cases</a></li>
+      <li><a href="#contact">report-a-bug</a></li>
+    </ul>
+    <button class="toggle" id="theme" aria-label="Toggle theme">light / dark</button>
+  </div>
+</nav>
+
+<main id="top">
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Senior QA Engineer · SDET · Dubai, UAE</div>
+        <h1>I break software so your users <em>never</em> have to.</h1>
+        <p class="lead">Lubna Ashanisha Muhammed. 6+ years testing Fintech, ERP, SaaS, CRM, eCommerce and AI products. UI &amp; API automation, exploratory testing, security checks, and spatial apps on Apple Vision Pro.</p>
+        <div class="btns">
+          <a class="btn solid" href="#contact">./file-a-bug-report</a>
+          <a class="btn" href="https://linkedin.com/in/lubnaaam" target="_blank" rel="noopener">linkedin</a>
+          <a class="btn" href="https://github.com/lubnaamsali" target="_blank" rel="noopener">github</a>
+        </div>
+      </div>
+
+      <div class="term" aria-hidden="true">
+        <div class="term-bar"><i></i><i></i><i></i><span>~/lubna — qa-suite --all</span></div>
+<pre><span class="l" style="animation-delay:.3s"><span class="dim">$</span> run qa-suite --all</span>
+<span class="l" style="animation-delay:.9s"><span class="acc">▶</span> Authentication &amp; access control   <span class="ok">PASS</span></span>
+<span class="l" style="animation-delay:1.3s"><span class="acc">▶</span> Role-based permissions         <span class="ok">PASS</span></span>
+<span class="l" style="animation-delay:1.7s"><span class="acc">▶</span> UI automation (Selenium/PW)    <span class="ok">PASS</span></span>
+<span class="l" style="animation-delay:2.1s"><span class="acc">▶</span> API tests (Postman/RestAssured) <span class="ok">PASS</span></span>
+<span class="l" style="animation-delay:2.5s"><span class="acc">▶</span> Load test (JMeter)              <span class="ok">PASS</span></span>
+<span class="l" style="animation-delay:2.9s"><span class="acc">▶</span> SQL data integrity              <span class="ok">PASS</span></span>
+<span class="l" style="animation-delay:3.3s"><span class="acc">▶</span> visionOS spatial UI             <span class="ok">PASS</span></span>
+<span class="l" style="animation-delay:3.7s"><span class="wn">⚠</span> Edge cases found in prod      <span class="ok">0</span></span>
+<span class="l" style="animation-delay:4.1s"><span class="dim">──────────────────────────────────</span></span>
+<span class="l" style="animation-delay:4.3s"><span class="ok">Quality Gate: SIGNED OFF</span> <span class="cursor"></span></span></pre>
+      </div>
+    </div>
+
+    <div class="stats rv">
+      <div class="stat"><b data-n="6" data-s="+">0</b><span>years in QA</span></div>
+      <div class="stat"><b data-n="15" data-s="">0</b><span>products tested</span></div>
+      <div class="stat"><b data-n="5" data-s="">0</b><span>platforms, incl. visionOS</span></div>
+      <div class="stat"><b>CTFL</b><span>ISTQB certified</span></div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head rv"><span class="no">01</span><h2>About</h2></div>
+      <div class="about rv">
+        <div class="panel">
+          <h3>README.md</h3>
+          <p>I'm a Senior QA Engineer / SDET who pairs context-driven, exploratory testing with real front-end development (React, JavaScript, HTML5, CSS3, Bootstrap) and UI/API automation (Selenium WebDriver, Playwright, TestNG, Postman, RestAssured).</p>
+          <p>I own end-to-end test strategy and Quality Gate sign-off across multiple concurrent products, working with product owners and engineers to clarify functional and non-functional requirements, validate business flows and acceptance criteria, and reduce production risk.</p>
+          <p>Comfortable in Agile/Scrum and CI/CD-driven releases, with SQL/PL-SQL backend validation and a recent focus on security testing.</p>
+        </div>
+        <div class="panel">
+          <h3>config.json</h3>
+          <dl class="kv">
+            <dt>role</dt><dd>Senior QA Engineer / SDET</dd>
+            <dt>based_in</dt><dd>Dubai, UAE</dd>
+            <dt>current</dt><dd>Red Rock Technology</dd>
+            <dt>domains</dt><dd>Fintech · ERP · SaaS · CRM · eCommerce · AI</dd>
+            <dt>certified</dt><dd>ISTQB CTFL</dd>
+            <dt>education</dt><dd>B.Tech CSE, Anna University</dd>
+            <dt>status</dt><dd class="ok">open to opportunities</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head rv"><span class="no">02</span><h2>Skills &amp; Coverage</h2></div>
+      <div class="matrix">
+        <div class="skill rv"><h3>Test Automation <small>COVERED</small></h3><div class="tags"><span>Selenium WebDriver</span><span>Playwright</span><span>TestNG</span><span>Java</span><span>Python</span></div></div>
+        <div class="skill rv"><h3>API &amp; Performance <small>COVERED</small></h3><div class="tags"><span>Postman</span><span>RestAssured</span><span>JMeter</span></div></div>
+        <div class="skill rv"><h3>Security Testing <small>COVERED</small></h3><div class="tags"><span>Authentication</span><span>Access control</span><span>Role-based permissions</span><span>Input validation</span><span>Basic vulnerability checks</span></div></div>
+        <div class="skill rv"><h3>Methodology <small>COVERED</small></h3><div class="tags"><span>Exploratory</span><span>Context-driven</span><span>Functional</span><span>Integration</span><span>Regression</span><span>System</span><span>UAT</span><span>Smoke &amp; sanity</span><span>Agile/Scrum</span><span>SDLC/STLC</span></div></div>
+        <div class="skill rv"><h3>Front-End Dev <small>COVERED</small></h3><div class="tags"><span>React</span><span>JavaScript</span><span>HTML5</span><span>CSS3</span><span>Bootstrap</span></div></div>
+        <div class="skill rv"><h3>CI/CD &amp; SCM <small>COVERED</small></h3><div class="tags"><span>Git</span><span>GitHub</span><span>Jenkins</span><span>GitLab CI</span><span>Azure DevOps</span><span>GitHub Actions</span></div></div>
+        <div class="skill rv"><h3>Databases <small>COVERED</small></h3><div class="tags"><span>SQL</span><span>MySQL</span><span>PostgreSQL</span><span>Oracle PL/SQL</span></div></div>
+        <div class="skill rv"><h3>Tracking &amp; Process <small>COVERED</small></h3><div class="tags"><span>Jira</span><span>TestRail</span><span>Azure Boards</span><span>Defect lifecycle</span><span>Quality gates</span><span>Release validation</span></div></div>
+      </div>
+      <h3 class="mono rv" style="margin:34px 0 14px;font-size:.8rem;color:var(--accent);font-weight:500;text-transform:uppercase;letter-spacing:.08em">Platform matrix</h3>
+      <div class="devices rv">
+        <span class="device">Android</span><span class="device">iOS</span><span class="device">Windows</span><span class="device">macOS</span><span class="device">Web browsers</span><span class="device vp">visionOS · Apple Vision Pro</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec-head rv"><span class="no">03</span><h2>Experience <span class="mono" style="font-size:.9rem;color:var(--muted);font-weight:400">/ test suites</span></h2></div>
+
+      <details class="suite rv" open>
+        <summary>
+          <span class="badge run">RUNNING</span>
+          <h3>Senior QA Engineer <span>· Red Rock Technology</span></h3>
+          <span class="when">Jun 2026 – Present<span class="chev">›</span></span>
+        </summary>
+        <div class="body">
+          <div class="proj">Role-Based Enterprise Application | AI Conversational Agent (Real Estate Assistant)</div>
+          <ul class="cases">
+            <li>Hands-on front-end development (React, JavaScript, HTML5, CSS3, Bootstrap) alongside quality validation for a role-based enterprise app covering employees, salary and leave, tasks, clients, products and notifications.</li>
+            <li>Built and validated a real-time team chat module, verifying functional behavior and cross-role access control.</li>
+            <li>Validated workflows and conversational logic for an AI real estate assistant, including WhatsApp and Telegram integration touchpoints.</li>
+            <li>Security testing of authentication, role-based access control and input validation ahead of release.</li>
+            <li>Managed Git/GitHub, supported Jenkins CI/CD, and explored Playwright alongside Selenium/TestNG coverage.</li>
+            <li>Validated notification triggers and cross-module data integrity with engineering before release.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="suite rv">
+        <summary>
+          <span class="badge">PASSED</span>
+          <h3>Senior QA Engineer <span>· Next Technology</span></h3>
+          <span class="when">Jun 2025 – Jun 2026<span class="chev">›</span></span>
+        </summary>
+        <div class="body">
+          <div class="proj">Winly | Skyforce | Moon AI (AI Subscription &amp; SaaS Platforms)</div>
+          <ul class="cases">
+            <li>Owned end-to-end test strategy and test plans for multiple concurrent AI-powered SaaS products: functional, integration, regression, exploratory and UAT.</li>
+            <li>Led cross-platform validation across Windows, macOS, iOS, Android and Apple Vision Pro (visionOS) in a first-of-its-kind spatial-computing environment.</li>
+            <li>Validated billing, subscription, invoice and approval workflows against acceptance criteria before sign-off.</li>
+            <li>API testing with Postman and SQL/PL-SQL data-integrity checks to support reliable releases.</li>
+            <li>Authored structured bug reports, managed the defect lifecycle in Jira, and ran smoke and production release validation across the Apple ecosystem.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="suite rv">
+        <summary>
+          <span class="badge">PASSED</span>
+          <h3>Senior QA Engineer <span>· ARK Lab International</span></h3>
+          <span class="when">Jun 2024 – Jun 2025<span class="chev">›</span></span>
+        </summary>
+        <div class="body">
+          <div class="proj">UPTX (Crypto Trading Application)</div>
+          <ul class="cases">
+            <li>Built test strategies for fintech and crypto trading where transaction accuracy and data integrity were business-critical.</li>
+            <li>End-to-end regression, integration, exploratory, performance and workflow testing across the trading application lifecycle.</li>
+            <li>Load testing with JMeter, alongside API testing and validation in Postman.</li>
+            <li>SQL/PL-SQL validation to confirm payment and transaction workflow accuracy.</li>
+            <li>Worked with engineering and product in Agile sprints, owning defect tracking end-to-end in Jira.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="suite rv">
+        <summary>
+          <span class="badge">PASSED</span>
+          <h3>Software Test Engineer <span>· Netstager Technologies</span></h3>
+          <span class="when">May 2022 – May 2024<span class="chev">›</span></span>
+        </summary>
+        <div class="body">
+          <div class="proj">RAMS (Vendor &amp; Product Mgmt) | MPN (Malabar Partner Network) | PIM (Product Information Mgmt)</div>
+          <ul class="cases">
+            <li>Created and executed test cases for ERP and CRM systems supporting vendor, partner and product information management.</li>
+            <li>Functional, system, regression, integration and UAT across multi-module enterprise applications.</li>
+            <li>API testing and SQL-based backend validation against business workflows.</li>
+            <li>Validated against documented acceptance criteria, took part in Agile ceremonies, and tracked defects in Jira to resolution.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="suite rv">
+        <summary>
+          <span class="badge">PASSED</span>
+          <h3>Software Test Engineer <span>· Codedady</span></h3>
+          <span class="when">May 2020 – May 2022<span class="chev">›</span></span>
+        </summary>
+        <div class="body">
+          <div class="proj">Dubuy | True Account ERP | SaveBox eAuction | Vidya Portal | Foodoor | Blood Locator</div>
+          <ul class="cases">
+            <li>Manual testing across web and mobile apps: B2B marketplace, ERP, eAuction and consumer apps.</li>
+            <li>Regression, smoke, sanity, exploratory and UAT ahead of production, including Foodoor, a consumer app with 100K+ downloads.</li>
+            <li>API testing and clearly reproducible defect reports, coordinated directly with developers on fixes.</li>
+            <li>Supported multiple concurrent production release cycles.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section id="cases">
+    <div class="wrap">
+      <div class="sec-head rv"><span class="no">04</span><h2>Test Cases <span class="mono" style="font-size:.9rem;color:var(--muted);font-weight:400">/ products I've shipped quality into</span></h2></div>
+      <div class="tcs">
+        <div class="tc rv"><div class="id"><span>TC-001</span><b>PASS</b></div><h3>Role-Based Enterprise App</h3><p>Employee, salary, leave, task and client management with real-time chat and notifications.</p><div class="tags"><span>React</span><span>RBAC</span><span>Security</span></div></div>
+        <div class="tc rv"><div class="id"><span>TC-002</span><b>PASS</b></div><h3>AI Real Estate Assistant</h3><p>Conversational agent with WhatsApp and Telegram integration touchpoints.</p><div class="tags"><span>AI</span><span>Messaging</span><span>Workflows</span></div></div>
+        <div class="tc rv"><div class="id"><span>TC-003</span><b>PASS</b></div><h3>Winly · Skyforce · Moon AI</h3><p>AI subscription and SaaS platforms across Windows, macOS, iOS, Android and visionOS.</p><div class="tags"><span>SaaS</span><span>Billing</span><span>visionOS</span></div></div>
+        <div class="tc rv"><div class="id"><span>TC-004</span><b>PASS</b></div><h3>UPTX</h3><p>Crypto trading app: trading, wallets, deposits, withdrawals and transaction processing.</p><div class="tags"><span>Fintech</span><span>JMeter</span><span>SQL</span></div></div>
+        <div class="tc rv"><div class="id"><span>TC-005</span><b>PASS</b></div><h3>RAMS · MPN · PIM</h3><p>ERP and CRM systems for vendor, partner and product information management.</p><div class="tags"><span>ERP</span><span>CRM</span><span>API</span></div></div>
+        <div class="tc rv"><div class="id"><span>TC-006</span><b>PASS</b></div><h3>Foodoor &amp; Marketplace Apps</h3><p>Foodoor (100K+ downloads), Dubuy B2B marketplace, True Account ERP, SaveBox eAuction, Vidya Portal, Blood Locator.</p><div class="tags"><span>Mobile</span><span>eCommerce</span><span>UAT</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap">
+      <div class="sec-head rv"><span class="no">05</span><h2>Education &amp; Certifications</h2></div>
+      <div class="two rv">
+        <div class="panel"><h3>Degree</h3><p style="color:var(--text);font-weight:500;margin-bottom:4px">B.Tech, Computer Science &amp; Engineering</p><p>Anna University, India · 2016 – 2020</p></div>
+        <div class="panel"><h3>Certifications</h3>
+          <ul class="certs">
+            <li>ISTQB Certified Tester, Foundation Level <span>CTFL</span></li>
+            <li>Advanced Selenium WebDriver with Java <span>CERT</span></li>
+            <li>Six Sigma Green Belt <span>CERT</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head rv"><span class="no">06</span><h2>File a Bug Report</h2></div>
+      <div class="report rv">
+        <header><span>BUG-<span id="bugid">0000</span> · <b>OPEN</b></span><span>Component: hiring · Assignee: Lubna</span></header>
+        <form id="form">
+          <div><label for="name">Your name</label><input id="name" required placeholder="Jane Doe"></div>
+          <div><label for="email">Your email</label><input id="email" type="email" required placeholder="jane@company.com"></div>
+          <div><label for="sev">Severity</label>
+            <select id="sev"><option>Critical: we need a QA lead now</option><option selected>Major: hiring for a QA / SDET role</option><option>Minor: let's chat about quality</option><option>Trivial: just saying hi</option></select></div>
+          <div><label for="sum">Summary</label><input id="sum" required placeholder="Role / project / topic"></div>
+          <div class="full"><label for="steps">Steps to reproduce</label><textarea id="steps" required placeholder="Tell me about the role or product, and what you'd like tested."></textarea></div>
+          <div class="full"><button class="btn solid" type="submit">submit report →</button></div>
+        </form>
+      </div>
+      <div class="links rv">
+        <a class="btn" href="mailto:lubnaamsali@gmail.com">lubnaamsali@gmail.com</a>
+        <a class="btn" href="https://linkedin.com/in/lubnaaam" target="_blank" rel="noopener">linkedin.com/in/lubnaaam</a>
+        <a class="btn" href="https://github.com/lubnaamsali" target="_blank" rel="noopener">github.com/lubnaamsali</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Lubna Ashanisha Muhammed · Dubai, UAE</span>
+    <span class="ok">● build: passing</span>
+  </div>
+</footer>
+
+<script>
+  // theme
+  var root = document.documentElement;
+  try { var t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  document.getElementById('theme').addEventListener('click', function () {
+    var next = root.dataset.theme === 'light' ? 'dark' : 'light';
+    root.dataset.theme = next;
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+
+  // reveal on scroll
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
+
+  // counters
+  document.querySelectorAll('[data-n]').forEach(function (el) {
+    var n = +el.dataset.n, s = el.dataset.s || '', i = 0;
+    var co = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return;
+      co.disconnect();
+      var id = setInterval(function () {
+        i++; el.textContent = i + (i >= n ? s : '');
+        if (i >= n) clearInterval(id);
+      }, 700 / n);
+    });
+    co.observe(el);
+  });
+
+  // bug id + mailto report
+  document.getElementById('bugid').textContent = String(Math.floor(1000 + Math.random() * 9000));
+  document.getElementById('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = function (id) { return document.getElementById(id).value; };
+    var body = 'Reporter: ' + v('name') + ' <' + v('email') + '>\nSeverity: ' + v('sev') + '\n\nSteps to reproduce:\n' + v('steps');
+    location.href = 'mailto:lubnaamsali@gmail.com?subject=' + encodeURIComponent('[BUG-' + document.getElementById('bugid').textContent + '] ' + v('sum')) + '&body=' + encodeURIComponent(body);
+  });
+</script>
 </body>
 </html>
